@@ -16,27 +16,24 @@ const app = express();
 // Security
 app.use(helmet());
 
-// ✅ Proper CORS setup (fixes your issue)
 const allowedOrigins = [
   'http://localhost:3000',
-  process.env.FRONTEND_URL, // your Vercel URL
+  process.env.FRONTEND_URL
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // allow requests with no origin (Postman, curl, etc.)
-      if (!origin) return callback(null, true);
+      if (!origin) return callback(null, true); // allow Postman, curl
 
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
-      } else {
-        console.log('Blocked by CORS:', origin);
-        return callback(new Error('Not allowed by CORS'));
       }
+
+      // ❗ DO NOT THROW ERROR
+      return callback(null, false);
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
+    credentials: true
   })
 );
 
