@@ -1,11 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useAuth } from '../hooks/useContexts';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { focusService } from '../services/api';
 import toast from 'react-hot-toast';
 import { Play, Pause, RotateCcw, Zap } from 'lucide-react';
 
 const FocusMode = () => {
-  const { token } = useAuth();
   const [duration, setDuration] = useState(25);
   const [sessionDuration, setSessionDuration] = useState(25);
   const [isRunning, setIsRunning] = useState(false);
@@ -15,7 +13,7 @@ const FocusMode = () => {
   const intervalRef = useRef(null);
   const audioRef = useRef(null);
 
-  const handleSessionEnd = async () => {
+  const handleSessionEnd = useCallback(async () => {
     setIsRunning(false);
 
     if (!sessionId) return;
@@ -34,7 +32,7 @@ const FocusMode = () => {
     } catch (error) {
       toast.error('Failed to end session');
     }
-  };
+  }, [sessionId, focusScore, distractions, sessionDuration]);
 
   useEffect(() => {
     if (isRunning && duration > 0) {
@@ -46,7 +44,7 @@ const FocusMode = () => {
     }
 
     return () => clearInterval(intervalRef.current);
-  }, [isRunning, duration]);
+  }, [isRunning, duration, handleSessionEnd]); 
 
   const handleStart = async () => {
     try {

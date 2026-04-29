@@ -5,7 +5,6 @@ import toast from 'react-hot-toast';
 import { Wand2 } from 'lucide-react';
 
 const PlannerGenerator = () => {
-  const { } = useAuth();
   const [loading, setLoading] = useState(false);
   const [plan, setPlan] = useState(null);
 
