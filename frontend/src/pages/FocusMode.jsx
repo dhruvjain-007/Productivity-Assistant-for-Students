@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../hooks/useContexts';
 import { focusService } from '../services/api';
-import { formatDuration } from '../utils/helpers';
 import toast from 'react-hot-toast';
 import { Play, Pause, RotateCcw, Zap } from 'lucide-react';
 
@@ -16,6 +15,25 @@ const FocusMode = () => {
   const intervalRef = useRef(null);
   const audioRef = useRef(null);
 
+  const handleSessionEnd = async () => {
+    setIsRunning(false);
+    if (!sessionId) return;
+
+    try {
+      await focusService.endSession(sessionId, {
+        focusScore,
+        distractionsCount: distractions,
+      });
+      toast.success('Session ended!');
+      setSessionId(null);
+      setDuration(sessionDuration);
+      setFocusScore(50);
+      setDistractions(0);
+    } catch (error) {
+      toast.error('Failed to end session');
+    }
+  };
+
   useEffect(() => {
     if (isRunning && duration > 0) {
       intervalRef.current = setInterval(() => {
@@ -26,7 +44,7 @@ const FocusMode = () => {
     }
 
     return () => clearInterval(intervalRef.current);
-  }, [isRunning, duration]);
+  }, [isRunning, duration, sessionId, focusScore, distractions, sessionDuration]);
 
   const handleStart = async () => {
     try {

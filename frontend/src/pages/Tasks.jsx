@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useContexts';
 import { taskService, focusService } from '../services/api';
-import { formatTime, formatDuration, priorityColors, statusColors } from '../utils/helpers';
+import { formatDuration, priorityColors } from '../utils/helpers';
 import toast from 'react-hot-toast';
-import { Play, Pause, Plus, Trash2 } from 'lucide-react';
+import { Play, Plus, Trash2 } from 'lucide-react';
 
 const Tasks = () => {
   const { token } = useAuth();
@@ -21,7 +21,7 @@ const Tasks = () => {
 
   useEffect(() => {
     fetchTasks();
-  }, [filter, token]);
+  }, [filter, token, loading]);
 
   const fetchTasks = async () => {
     setLoading(true);

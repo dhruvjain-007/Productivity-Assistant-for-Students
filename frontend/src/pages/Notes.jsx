@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useContexts';
 import { noteService } from '../services/api';
-import { formatDate } from '../utils/helpers';
 import toast from 'react-hot-toast';
 import { Plus, Trash2, Wand2, Heart } from 'lucide-react';
 
@@ -65,7 +64,7 @@ const Notes = () => {
 
   const handleSummarize = async (noteId) => {
     try {
-      const summary = await noteService.summarizeNote(noteId, 'balanced');
+      await noteService.summarizeNote(noteId, 'balanced');
       toast.success('Note summarized!');
       fetchNotes();
     } catch (error) {

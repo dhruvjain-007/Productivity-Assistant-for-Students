@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useContexts';
 import { analyticsService } from '../services/api';
-import { formatDuration, formatDate } from '../utils/helpers';
+import { formatDuration } from '../utils/helpers';
 import toast from 'react-hot-toast';
 import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from 'recharts';
 import { TrendingUp, Focus, CheckCircle, Zap } from 'lucide-react';

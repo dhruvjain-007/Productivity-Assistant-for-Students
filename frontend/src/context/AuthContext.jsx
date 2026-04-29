@@ -90,7 +90,9 @@ export const AuthProvider = ({ children }) => {
       setUser(data.user);
     } catch (err) {
       setError(err.message);
-      logout();
+      setUser(null);
+      setToken(null);
+      localStorage.removeItem('token');
     } finally {
       setLoading(false);
     }
@@ -100,7 +102,7 @@ export const AuthProvider = ({ children }) => {
     if (token && !user) {
       getMe();
     }
-  }, [token]);
+  }, [token, user, getMe]);
 
   return (
     <AuthContext.Provider
