@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useAuth } from '../hooks/useContexts';
 import { taskService } from '../services/api';
 import toast from 'react-hot-toast';
 import { Wand2 } from 'lucide-react';
