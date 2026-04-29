@@ -17,14 +17,16 @@ const FocusMode = () => {
 
   const handleSessionEnd = async () => {
     setIsRunning(false);
+
     if (!sessionId) return;
 
     try {
       await focusService.endSession(sessionId, {
         focusScore,
         distractionsCount: distractions,
+        distractionTypes: [],
       });
-      toast.success('Session ended!');
+      toast.success('Session completed!');
       setSessionId(null);
       setDuration(sessionDuration);
       setFocusScore(50);
@@ -44,7 +46,7 @@ const FocusMode = () => {
     }
 
     return () => clearInterval(intervalRef.current);
-  }, [isRunning, duration, sessionId, focusScore, distractions, sessionDuration]);
+  }, [isRunning, duration]);
 
   const handleStart = async () => {
     try {
@@ -69,30 +71,13 @@ const FocusMode = () => {
     setDuration(sessionDuration);
     setDistractions(0);
     setFocusScore(50);
-  };
-
-  const handleSessionEnd = async () => {
-    setIsRunning(false);
-
-    if (sessionId) {
-      try {
-        await focusService.endSession(sessionId, {
-          focusScore,
-          distractionsCount: distractions,
-          distractionTypes: [],
-        });
-        toast.success('Focus session completed!');
-        setSessionId(null);
-        setDuration(sessionDuration);
-      } catch (error) {
-        toast.error('Failed to end session');
-      }
-    }
+    setSessionId(null);
   };
 
   const handleDistraction = () => {
     setDistractions((prev) => prev + 1);
     setFocusScore((prev) => Math.max(0, prev - 5));
+
     if (audioRef.current) {
       audioRef.current.play().catch(() => {});
     }
@@ -105,7 +90,6 @@ const FocusMode = () => {
     <div className="space-y-6">
       <h1 className="text-3xl font-bold text-gray-800">Focus Mode</h1>
 
-      {/* Main Timer */}
       <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-xl p-12 text-center text-white">
         <h2 className="text-lg font-medium mb-8 opacity-90">Focus Time</h2>
 
@@ -125,42 +109,29 @@ const FocusMode = () => {
           </div>
         </div>
 
-        {/* Controls */}
         <div className="flex items-center justify-center gap-4">
           {!isRunning && sessionId === null && (
-            <button
-              onClick={handleStart}
-              className="flex items-center gap-2 bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
-            >
+            <button onClick={handleStart} className="flex items-center gap-2 bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
               <Play className="w-5 h-5" />
               Start Session
             </button>
           )}
 
           {isRunning && (
-            <button
-              onClick={handlePause}
-              className="flex items-center gap-2 bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition"
-            >
+            <button onClick={handlePause} className="flex items-center gap-2 bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
               <Pause className="w-5 h-5" />
               Pause
             </button>
           )}
 
           {isRunning && (
-            <button
-              onClick={handleSessionEnd}
-              className="px-8 py-3 bg-red-500 hover:bg-red-600 rounded-lg font-semibold transition"
-            >
+            <button onClick={handleSessionEnd} className="px-8 py-3 bg-red-500 hover:bg-red-600 rounded-lg font-semibold transition">
               End Session
             </button>
           )}
 
           {!isRunning && sessionId !== null && (
-            <button
-              onClick={handleReset}
-              className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-8 py-3 rounded-lg font-semibold transition"
-            >
+            <button onClick={handleReset} className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-8 py-3 rounded-lg font-semibold transition">
               <RotateCcw className="w-5 h-5" />
               Reset
             </button>
@@ -168,34 +139,26 @@ const FocusMode = () => {
         </div>
       </div>
 
-      {/* Settings */}
       {!isRunning && sessionId === null && (
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-bold text-gray-800 mb-4">Session Settings</h2>
 
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Session Duration (minutes)
-              </label>
-              <input
-                type="range"
-                min="5"
-                max="120"
-                step="5"
-                value={sessionDuration}
-                onChange={(e) => setSessionDuration(parseInt(e.target.value))}
-                className="w-full"
-              />
-              <p className="text-center text-lg font-semibold text-indigo-600 mt-2">
-                {sessionDuration} minutes
-              </p>
-            </div>
-          </div>
+          <input
+            type="range"
+            min="5"
+            max="120"
+            step="5"
+            value={sessionDuration}
+            onChange={(e) => setSessionDuration(parseInt(e.target.value))}
+            className="w-full"
+          />
+
+          <p className="text-center text-lg font-semibold text-indigo-600 mt-2">
+            {sessionDuration} minutes
+          </p>
         </div>
       )}
 
-      {/* Distraction Button */}
       {isRunning && (
         <button
           onClick={handleDistraction}
@@ -206,7 +169,6 @@ const FocusMode = () => {
         </button>
       )}
 
-      {/* Audio element for notifications */}
       <audio
         ref={audioRef}
         src="data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA=="
