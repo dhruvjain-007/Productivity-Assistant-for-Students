@@ -24,13 +24,14 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // allow Postman, curl
+      console.log("Request Origin:", origin);
+
+      if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
-      // ❗ DO NOT THROW ERROR
       return callback(null, false);
     },
     credentials: true
