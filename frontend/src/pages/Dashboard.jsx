@@ -101,14 +101,14 @@ const Dashboard = () => {
       </div>
 
       {/* Weekly Overview */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-card dark:shadow-lg p-6 hover:shadow-card-lg dark:hover:shadow-xl transition-shadow\">
-        <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4\">Weekly Focus Time</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-card dark:shadow-lg p-6 hover:shadow-card-lg dark:hover:shadow-xl transition-shadow">
+        <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Weekly Focus Time</h2>
         {dashboard.weeklyData && dashboard.weeklyData.length > 0 ? (
-          <ResponsiveContainer width=\"100%\" height={300}>
+          <ResponsiveContainer width="100%" height={300}>
             <BarChart data={dashboard.weeklyData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray=\"3 3\" stroke=\"#374151\" />
-              <XAxis dataKey=\"day\" stroke=\"#6b7280\" />
-              <YAxis stroke=\"#6b7280\" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="day" stroke="#6b7280" />
+              <YAxis stroke="#6b7280" />
               <Tooltip 
                 contentStyle={{ 
                   backgroundColor: '#1f2937', 
@@ -116,12 +116,12 @@ const Dashboard = () => {
                   color: '#f3f4f6'
                 }} 
               />
-              <Bar dataKey=\"focusTime\" fill=\"#6366f1\" />
+              <Bar dataKey="focusTime" fill="#6366f1" />
             </BarChart>
           </ResponsiveContainer>
         ) : (
-          <div className=\"h-80 flex items-center justify-center bg-gray-50 dark:bg-gray-700 rounded\">
-            <p className=\"text-gray-500 dark:text-gray-400 text-center\">
+          <div className="h-80 flex items-center justify-center bg-gray-50 dark:bg-gray-700 rounded">
+            <p className="text-gray-500 dark:text-gray-400 text-center">
               No focus data yet. Start a focus session to see your weekly stats!
             </p>
           </div>

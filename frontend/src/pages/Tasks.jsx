@@ -189,21 +189,21 @@ const Tasks = () => {
       {loading ? (
         <div className="text-center text-gray-600 dark:text-gray-400 py-8\">Loading tasks...</div>
       ) : tasks.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg shadow-card\">
-          <p className="text-gray-600 dark:text-gray-400 text-lg\">No tasks yet. Create one to get started!</p>
+        <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg shadow-card">
+          <p className="text-gray-600 dark:text-gray-400 text-lg">No tasks yet. Create one to get started!</p>
         </div>
       ) : (
-        <div className="grid gap-4\">
+        <div className="grid gap-4">
           {tasks.map((task) => (
             <div
               key={task._id}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-card hover:shadow-card-lg dark:hover:shadow-xl p-4 transition-shadow\"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-card hover:shadow-card-lg dark:hover:shadow-xl p-4 transition-shadow"
             >
-              <div className="flex items-start justify-between\">
-                <div className="flex-1\">
-                  <h3 className="font-semibold text-gray-800 dark:text-white text-lg\">{task.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1\">{task.description}</p>
-                  <div className="flex gap-2 mt-3 items-center flex-wrap\">
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-800 dark:text-white text-lg">{task.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">{task.description}</p>
+                  <div className="flex gap-2 mt-3 items-center flex-wrap">
                     <span className={`text-xs px-2 py-1 rounded font-medium ${
                       task.priority === 'high' ? 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200' :
                       task.priority === 'medium' ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200' :
@@ -211,7 +211,7 @@ const Tasks = () => {
                     }`}>
                       {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
                     </span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400\">Est. {task.estimatedTime}m</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">Est. {task.estimatedTime}m</span>
                     <span className={`text-xs px-2 py-1 rounded font-medium ${
                       task.status === 'completed' ? 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' :
                       task.status === 'in-progress' ? 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200' :
@@ -221,20 +221,20 @@ const Tasks = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex gap-2 ml-4\">
+                <div className="flex gap-2 ml-4">
                   <button
                     onClick={() => startFocusSession(task._id, task.estimatedTime)}
-                    className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900 rounded-lg transition\"
-                    title="Start focus session\"
+                    className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900 rounded-lg transition"
+                    title="Start focus session"
                   >
-                    <Play className="w-5 h-5\" />
+                    <Play className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => handleDeleteTask(task._id)}
-                    className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900 rounded-lg transition\"
-                    title="Delete task\"
+                    className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900 rounded-lg transition"
+                    title="Delete task"
                   >
-                    <Trash2 className="w-5 h-5\" />
+                    <Trash2 className="w-5 h-5" />
                   </button>
                 </div>
               </div>
