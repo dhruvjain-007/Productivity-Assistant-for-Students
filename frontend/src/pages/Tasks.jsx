@@ -120,8 +120,9 @@ const Tasks = () => {
             onChange={(e) =>
               setNewTask({ ...newTask, description: e.target.value })
             }
-            placeholder="Description"
+            placeholder="Describe what you need to do (optional)"
             className="w-full px-4 py-2 border rounded-lg"
+            rows="3"
           />
 
           <div className="grid grid-cols-2 gap-4">
@@ -147,6 +148,7 @@ const Tasks = () => {
                 })
               }
               min="5"
+              placeholder="Minutes"
               className="px-4 py-2 border rounded-lg"
             />
           </div>

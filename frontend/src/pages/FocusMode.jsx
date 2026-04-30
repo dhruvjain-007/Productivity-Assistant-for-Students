@@ -144,7 +144,7 @@ const FocusMode = () => {
           <input
             type="range"
             min="5"
-            max="120"
+            max="180"
             step="5"
             value={sessionDuration}
             onChange={(e) => setSessionDuration(parseInt(e.target.value))}

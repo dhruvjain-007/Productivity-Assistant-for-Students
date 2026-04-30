@@ -11,10 +11,15 @@ const PlannerGenerator = () => {
     setLoading(true);
     try {
       const data = await taskService.generatePlan({ date: new Date() });
-      setPlan(data.plan);
-      toast.success('Plan generated successfully!');
+      if (data && data.plan) {
+        setPlan(data.plan);
+        toast.success('Plan generated successfully!');
+      } else {
+        toast.error('No plan generated. Please try again.');
+      }
     } catch (error) {
-      toast.error('Failed to generate plan');
+      console.error('Plan generation error:', error);
+      toast.error(error.message || 'Failed to generate plan. Please try again.');
     } finally {
       setLoading(false);
     }
