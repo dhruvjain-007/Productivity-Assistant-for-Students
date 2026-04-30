@@ -53,7 +53,7 @@ const FocusMode = () => {
       });
       setSessionId(session._id);
       setIsRunning(true);
-      setDuration(sessionDuration);
+      setDuration(sessionDuration * 60); // Convert minutes to seconds
       toast.success('Focus session started!');
     } catch (error) {
       toast.error('Failed to start session');

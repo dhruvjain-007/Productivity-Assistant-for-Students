@@ -115,42 +115,51 @@ const Tasks = () => {
             className="w-full px-4 py-2 border rounded-lg"
           />
 
-          <textarea
-            value={newTask.description}
-            onChange={(e) =>
-              setNewTask({ ...newTask, description: e.target.value })
-            }
-            placeholder="Describe what you need to do (optional)"
-            className="w-full px-4 py-2 border rounded-lg"
-            rows="3"
-          />
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Task Description</label>
+            <textarea
+              value={newTask.description}
+              onChange={(e) =>
+                setNewTask({ ...newTask, description: e.target.value })
+              }
+              placeholder="Describe what you need to do (optional)"
+              className="w-full px-4 py-2 border rounded-lg"
+              rows="3"
+            />
+          </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <select
-              value={newTask.priority}
-              onChange={(e) =>
-                setNewTask({ ...newTask, priority: e.target.value })
-              }
-              className="px-4 py-2 border rounded-lg"
-            >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Priority Level</label>
+              <select
+                value={newTask.priority}
+                onChange={(e) =>
+                  setNewTask({ ...newTask, priority: e.target.value })
+                }
+                className="w-full px-4 py-2 border rounded-lg"
+              >
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
 
-            <input
-              type="number"
-              value={newTask.estimatedTime}
-              onChange={(e) =>
-                setNewTask({
-                  ...newTask,
-                  estimatedTime: parseInt(e.target.value),
-                })
-              }
-              min="5"
-              placeholder="Minutes"
-              className="px-4 py-2 border rounded-lg"
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Estimated Time (minutes)</label>
+              <input
+                type="number"
+                value={newTask.estimatedTime}
+                onChange={(e) =>
+                  setNewTask({
+                    ...newTask,
+                    estimatedTime: parseInt(e.target.value),
+                  })
+                }
+                min="5"
+                placeholder="e.g., 30"
+                className="w-full px-4 py-2 border rounded-lg"
+              />
+            </div>
           </div>
 
           <button className="w-full bg-indigo-600 text-white py-2 rounded-lg">

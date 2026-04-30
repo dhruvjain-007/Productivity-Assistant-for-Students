@@ -103,15 +103,23 @@ const Dashboard = () => {
       {/* Weekly Overview */}
       <div className="bg-white rounded-lg shadow p-6">
         <h2 className="text-xl font-bold text-gray-800 mb-4">Weekly Focus Time</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={[]} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="focusTime" fill="#6366f1" />
-          </BarChart>
-        </ResponsiveContainer>
+        {dashboard.weeklyData && dashboard.weeklyData.length > 0 ? (
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={dashboard.weeklyData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="day" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="focusTime" fill="#6366f1" />
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="h-80 flex items-center justify-center bg-gray-50 rounded">
+            <p className="text-gray-500 text-center">
+              No focus data yet. Start a focus session to see your weekly stats!
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Insights */}
