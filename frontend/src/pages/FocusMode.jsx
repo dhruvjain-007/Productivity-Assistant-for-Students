@@ -86,9 +86,9 @@ const FocusMode = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold text-gray-800">Focus Mode</h1>
+      <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Focus Mode</h1>
 
-      <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-xl p-12 text-center text-white">
+      <div className="bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-700 dark:to-purple-800 rounded-lg shadow-card-lg dark:shadow-xl p-12 text-center text-white hover:shadow-xl transition-shadow">
         <h2 className="text-lg font-medium mb-8 opacity-90">Focus Time</h2>
 
         <div className="text-7xl font-bold mb-8 font-mono tracking-wider">
