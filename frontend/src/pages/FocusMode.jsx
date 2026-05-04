@@ -109,14 +109,14 @@ const FocusMode = () => {
 
         <div className="flex items-center justify-center gap-4">
           {!isRunning && sessionId === null && (
-            <button onClick={handleStart} className="flex items-center gap-2 bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+            <button onClick={handleStart} className="flex items-center gap-2 bg-white dark:bg-gray-200 text-indigo-600 dark:text-indigo-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-300 transition">
               <Play className="w-5 h-5" />
               Start Session
             </button>
           )}
 
           {isRunning && (
-            <button onClick={handlePause} className="flex items-center gap-2 bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+            <button onClick={handlePause} className="flex items-center gap-2 bg-white dark:bg-gray-200 text-indigo-600 dark:text-indigo-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-300 transition">
               <Pause className="w-5 h-5" />
               Pause
             </button>
@@ -138,8 +138,8 @@ const FocusMode = () => {
       </div>
 
       {!isRunning && sessionId === null && (
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Session Settings</h2>
+        <div className="bg-white dark:bg-gray-800 dark:border dark:border-gray-700 rounded-lg shadow dark:shadow-lg p-6">
+          <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Session Settings</h2>
 
           <input
             type="range"
@@ -151,7 +151,7 @@ const FocusMode = () => {
             className="w-full"
           />
 
-          <p className="text-center text-lg font-semibold text-indigo-600 mt-2">
+          <p className="text-center text-lg font-semibold text-indigo-600 dark:text-indigo-300 mt-2">
             {sessionDuration} minutes
           </p>
         </div>
@@ -160,7 +160,7 @@ const FocusMode = () => {
       {isRunning && (
         <button
           onClick={handleDistraction}
-          className="w-full bg-red-100 hover:bg-red-200 text-red-800 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition"
+          className="w-full bg-red-100 dark:bg-red-900 hover:bg-red-200 dark:hover:bg-red-800 text-red-800 dark:text-red-200 font-semibold py-4 rounded-lg flex items-center justify-center gap-2 transition"
         >
           <Zap className="w-5 h-5" />
           I Got Distracted

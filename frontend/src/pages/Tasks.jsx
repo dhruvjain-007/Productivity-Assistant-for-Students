@@ -106,21 +106,21 @@ const Tasks = () => {
             onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
             required
             placeholder="Task title"
-            className="w-full px-4 py-2 border rounded-lg"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-indigo-400"
           />
 
           <textarea
             value={newTask.description}
             onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
             placeholder="Description"
-            className="w-full px-4 py-2 border rounded-lg"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 dark:focus:ring-indigo-400"
           />
 
           <div className="grid grid-cols-2 gap-4">
             <select
               value={newTask.priority}
               onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-              className="px-4 py-2 border rounded-lg"
+              className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-indigo-400"
             >
               <option value="low">Low</option>
               <option value="medium">Medium</option>
@@ -133,11 +133,11 @@ const Tasks = () => {
               onChange={(e) =>
                 setNewTask({ ...newTask, estimatedTime: parseInt(e.target.value) })
               }
-              className="px-4 py-2 border rounded-lg"
+              className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:focus:ring-indigo-400"
             />
           </div>
 
-          <button className="w-full bg-indigo-600 text-white py-2 rounded-lg">
+          <button className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all">
             Create Task
           </button>
         </form>
@@ -150,7 +150,9 @@ const Tasks = () => {
             key={status}
             onClick={() => setFilter(status)}
             className={`px-4 py-2 rounded-lg ${
-              filter === status ? 'bg-indigo-600 text-white' : 'bg-gray-200'
+              filter === status
+                ? 'bg-indigo-600 text-white'
+                : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200'
             }`}
           >
             {status}
@@ -160,18 +162,17 @@ const Tasks = () => {
 
       {/* Tasks List */}
       {loading ? (
-        <div className="text-center py-8">Loading tasks...</div>
+        <div className="text-center py-8 text-gray-600 dark:text-gray-300">Loading tasks...</div>
       ) : tasks.length === 0 ? (
-        <div className="text-center py-12">No tasks yet</div>
+        <div className="text-center py-12 text-gray-600 dark:text-gray-300">No tasks yet</div>
       ) : (
         <div className="grid gap-4">
           {tasks.map((task) => (
-            <div key={task._id} className="p-4 bg-white rounded-lg shadow">
-              <h3 className="font-semibold">{task.title}</h3>
-              <p className="text-sm">{task.description}</p>
+            <div key={task._id} className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-lg">
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">{task.title}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{task.description}</p>
 
               <div className="flex gap-2 mt-3">
-                {/* ✅ USE handleUpdateTask HERE */}
                 {task.status !== 'completed' && (
                   <button
                     onClick={() => handleUpdateTask(task._id, 'completed')}
@@ -183,14 +184,14 @@ const Tasks = () => {
 
                 <button
                   onClick={() => startFocusSession(task._id, task.estimatedTime)}
-                  className="p-2 text-blue-600"
+                  className="p-2 text-blue-600 dark:text-blue-300"
                 >
                   <Play />
                 </button>
 
                 <button
                   onClick={() => handleDeleteTask(task._id)}
-                  className="p-2 text-red-600"
+                  className="p-2 text-red-600 dark:text-red-400"
                 >
                   <Trash2 />
                 </button>
