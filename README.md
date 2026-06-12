@@ -444,7 +444,7 @@ Provides:
 
 ## Deployment Status
 
-✅ **Production Ready**
+**Production Ready**
 - Backend: Deployed on Render
 - Frontend: Deployed on Vercel
 - Database: MongoDB Atlas
@@ -526,4 +526,3 @@ For issues and questions:
 
 ---
 
-**Built with ❤️ for students who want to be more productive**
