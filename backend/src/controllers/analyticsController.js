@@ -107,6 +107,7 @@ exports.getDashboardAnalytics = async (req, res) => {
       },
     });
   } catch (error) {
+    console.error('getDashboardAnalytics error:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -208,6 +209,7 @@ exports.getAnalyticsReport = async (req, res) => {
       },
     });
   } catch (error) {
+    console.error('getAnalyticsReport error:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -244,12 +246,16 @@ exports.getProductivityInsights = async (req, res) => {
       hourlyData[hour].totalFocusTime += session.actualDuration || 0;
     });
 
-    const bestStudyHour = Object.keys(hourlyData).reduce((best, hour) =>
-      (hourlyData[hour]?.avgFocusScore || 0) >
-      (hourlyData[best]?.avgFocusScore || 0)
-        ? hour
-        : best
-    );
+    const hourKeys = Object.keys(hourlyData);
+    const bestStudyHour =
+      hourKeys.length > 0
+        ? hourKeys.reduce((best, hour) =>
+            (hourlyData[hour]?.avgFocusScore || 0) >
+            (hourlyData[best]?.avgFocusScore || 0)
+              ? hour
+              : best
+          )
+        : null;
 
     // Find most productive day
     const dayData = {};
@@ -270,17 +276,21 @@ exports.getProductivityInsights = async (req, res) => {
       dayData[dayName].avgFocusScore += session.focusScore || 0;
     });
 
-    const bestStudyDay = Object.keys(dayData).reduce((best, day) =>
-      (dayData[day]?.avgFocusScore || 0) > (dayData[best]?.avgFocusScore || 0)
-        ? day
-        : best
-    );
+    const dayKeys = Object.keys(dayData);
+    const bestStudyDay =
+      dayKeys.length > 0
+        ? dayKeys.reduce((best, day) =>
+            (dayData[day]?.avgFocusScore || 0) > (dayData[best]?.avgFocusScore || 0)
+              ? day
+              : best
+          )
+        : null;
 
     res.status(200).json({
       success: true,
       insights: {
-        bestStudyTime: `${bestStudyHour}:00`,
-        bestStudyDay,
+        bestStudyTime: bestStudyHour !== null ? `${bestStudyHour}:00` : null,
+        bestStudyDay: bestStudyDay || null,
         recommendedSessionDuration:
           focusSessions.length > 0
             ? Math.round(
@@ -291,13 +301,18 @@ exports.getProductivityInsights = async (req, res) => {
               )
             : 25,
         recommendations: [
-          `Your best focus time is around ${bestStudyHour}:00. Try scheduling important tasks then.`,
-          `You're most productive on ${bestStudyDay}s. Plan challenging work for that day.`,
+          bestStudyHour !== null
+            ? `Your best focus time is around ${bestStudyHour}:00. Try scheduling important tasks then.`
+            : `No clear best focus hour yet. Try tracking a few more sessions.`,
+          bestStudyDay
+            ? `You're most productive on ${bestStudyDay}s. Plan challenging work for that day.`
+            : `No clear best study day yet. Try tracking a few more sessions.`,
           `Keep distractions minimal - they reduce your focus score significantly.`,
         ],
       },
     });
   } catch (error) {
+    console.error('getProductivityInsights error:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
