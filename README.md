@@ -10,7 +10,7 @@ A production-ready AI-powered web application that helps students manage study t
 - Dynamic plan adjustment based on completed/missed tasks
 - Different schedules for weekdays and weekends
 
-### Task & Priority System
+### Task & Priority Systems
 - Create, edit, delete tasks
 - AI-assigned priority levels (High, Medium, Low)
 - Smart recommendations on what to work on next
@@ -444,7 +444,7 @@ Provides:
 
 ## Deployment Status
 
-✅ **Production Ready**
+**Production Ready**
 - Backend: Deployed on Render
 - Frontend: Deployed on Vercel
 - Database: MongoDB Atlas
@@ -526,4 +526,3 @@ For issues and questions:
 
 ---
 
-**Built with ❤️ for students who want to be more productive**

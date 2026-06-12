@@ -1,4 +1,5 @@
 import React, { createContext, useState, useCallback, useEffect } from 'react';
+import api from '../services/api';
 
 export const AuthContext = createContext();
 
@@ -12,17 +13,8 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
+      const response = await api.post('/auth/login', { email, password });
+      const data = response.data;
 
       setToken(data.token);
       setUser(data.user);
@@ -30,8 +22,9 @@ export const AuthProvider = ({ children }) => {
 
       return data;
     } catch (err) {
-      setError(err.message);
-      throw err;
+      const message = err.response?.data?.message || err.message || 'Login failed';
+      setError(message);
+      throw new Error(message);
     } finally {
       setLoading(false);
     }
@@ -41,17 +34,8 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, firstName, lastName }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Registration failed');
-      }
+      const response = await api.post('/auth/register', { email, password, firstName, lastName });
+      const data = response.data;
 
       setToken(data.token);
       setUser(data.user);
@@ -59,8 +43,9 @@ export const AuthProvider = ({ children }) => {
 
       return data;
     } catch (err) {
-      setError(err.message);
-      throw err;
+      const message = err.response?.data?.message || err.message || 'Registration failed';
+      setError(message);
+      throw new Error(message);
     } finally {
       setLoading(false);
     }
@@ -77,19 +62,13 @@ export const AuthProvider = ({ children }) => {
 
     setLoading(true);
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/me`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Failed to fetch user');
-      }
+      const response = await api.get('/auth/me');
+      const data = response.data;
 
       setUser(data.user);
     } catch (err) {
-      setError(err.message);
+      const message = err.response?.data?.message || err.message || 'Failed to fetch user';
+      setError(message);
       setUser(null);
       setToken(null);
       localStorage.removeItem('token');
