@@ -56,14 +56,14 @@ const Dashboard = () => {
     );
   }
 
-  const StatCard = ({ icon: Icon, label, value, color }) => (
+  const StatCard = ({ icon: Icon, label, value, color, iconColor }) => (
     <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-card dark:shadow-lg p-6 border-l-4 ${color} hover:shadow-card-lg dark:hover:shadow-xl transition-shadow`}>
       <div className="flex items-center justify-between">
         <div>
           <p className="text-gray-600 dark:text-gray-400 text-sm font-medium">{label}</p>
           <p className="text-2xl font-bold text-gray-800 dark:text-white mt-2">{value}</p>
         </div>
-        <Icon className="w-8 h-8 text-gray-300 dark:text-gray-600" />
+        <Icon className={`w-8 h-8 ${iconColor}`} />
       </div>
     </div>
   );
@@ -79,24 +79,28 @@ const Dashboard = () => {
           label="Completed Today"
           value={dashboard.today.completedTasks}
           color="border-blue-500"
+          iconColor="text-blue-500"
         />
         <StatCard
           icon={Focus}
           label="Focus Time Today"
           value={formatDuration(dashboard.today.focusTimeMinutes)}
           color="border-indigo-500"
+          iconColor="text-indigo-500"
         />
         <StatCard
           icon={Zap}
           label="This Week"
           value={`${dashboard.week.completedTasks} tasks`}
           color="border-green-500"
+          iconColor="text-green-500"
         />
         <StatCard
           icon={TrendingUp}
           label="Current Streak"
           value={`${dashboard.stats.currentStreakDays} days`}
           color="border-orange-500"
+          iconColor="text-orange-500"
         />
       </div>
 
